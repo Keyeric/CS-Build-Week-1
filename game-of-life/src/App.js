@@ -1,15 +1,15 @@
 import React, { Component } from "react";
-import Universe from "./logic/Universe";
 import "./App.css";
+import Universe from "./logic/Universe";
 
-export default class App extends Component {
+export default class Game extends Component {
   constructor(props) {
     super(props);
     this.state = {
       universe: new Universe(),
-      // columns (left right), rows (up down)
       size: [25, 25],
       gameRunning: false,
+      interval: 100,
     };
 
     this.handleColumnChange = this.handleColumnChange.bind(this);
@@ -24,8 +24,8 @@ export default class App extends Component {
     if (!this.state.gameRunning) {
       var actualSize = this.state.size;
 
-      if (event.target.value < 20) actualSize[1] = event.target.value;
-      else actualSize[1] = 20;
+      if (event.target.value < 100) actualSize[1] = event.target.value;
+      else actualSize[1] = 100;
 
       this.setState({
         size: actualSize,
@@ -38,8 +38,8 @@ export default class App extends Component {
   handleColumnChange(event) {
     if (!this.state.gameRunning) {
       var actualSize = this.state.size;
-      if (event.target.value < 90) actualSize[0] = event.target.value;
-      else actualSize[0] = 90;
+      if (event.target.value < 100) actualSize[0] = event.target.value;
+      else actualSize[0] = 100;
 
       this.setState({
         size: actualSize,
@@ -49,6 +49,14 @@ export default class App extends Component {
     }
   }
 
+  changeInterval = (event) => {
+    if (!this.state.gameRunning) {
+      this.setState({
+        interval: event.target.value,
+      });
+    }
+  };
+
   startGame() {
     if (!this.state.gameRunning) {
       this.setState(
@@ -56,7 +64,10 @@ export default class App extends Component {
           gameRunning: true,
         },
         () => {
-          this.intervalRef = setInterval(() => this.runGame(), 10);
+          this.intervalRef = setInterval(
+            () => this.runGame(),
+            this.state.interval
+          );
         }
       );
     }
@@ -88,6 +99,7 @@ export default class App extends Component {
       });
     }
   }
+
   renderBoard() {
     var newWorld = [];
     var cellRow = [];
@@ -148,6 +160,15 @@ export default class App extends Component {
                 onChange={this.handleColumnChange}
               />
             </label>
+            {/* <label className="label"> */}
+            {/* Interval:
+              <input
+                className="input"
+                type="text"
+                value={this.state.interval}
+                onChange={this.changeInterval}
+              /> */}
+            {/* </label> */}
           </div>
           <div className="headerButtons">
             <button className="submit" onClick={this.startGame}>

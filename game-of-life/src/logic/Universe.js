@@ -41,11 +41,11 @@ export default class Universe {
 
   addGeneration() {
     this.liveCells.forEach((item) => {
-      this.calculateLiveCellsNeighbors(item);
+      this.calculateLiveCellsNeighboors(item);
     });
 
     this.deadCells.forEach((item) => {
-      this.calculateDeadCellsNeighbors(item);
+      this.calculateDeadCellsNeighboors(item);
     });
 
     this.generation++;
@@ -53,42 +53,42 @@ export default class Universe {
     return new Universe(this.generation, this.nextGeneration);
   }
 
-  calculateLiveCellsNeighbors(position) {
-    var liveNeighbors = 0;
+  calculateLiveCellsNeighboors(position) {
+    var liveNeighboors = 0;
 
     for (var i = position.x - 1; i <= position.x + 1; i++) {
       for (var j = position.y - 1; j <= position.y + 1; j++) {
         if (i === position.x && j === position.y) continue;
 
         if (this.isCellAlive(i + " , " + j)) {
-          liveNeighbors++;
+          liveNeighboors++;
         } else {
           this.deadCells.set(i + " , " + j, { x: i, y: j });
         }
       }
     }
 
-    if (liveNeighbors === 2 || liveNeighbors === 3)
+    if (liveNeighboors === 2 || liveNeighboors === 3)
       this.nextGeneration.set(position.x + " , " + position.y, {
         x: position.x,
         y: position.y,
       });
   }
 
-  calculateDeadCellsNeighbors(position) {
-    var liveNeighbors = 0;
+  calculateDeadCellsNeighboors(position) {
+    var liveNeighboors = 0;
 
     for (var i = position.x - 1; i <= position.x + 1; i++) {
       for (var j = position.y - 1; j <= position.y + 1; j++) {
         if (i === position.x && j === position.y) continue;
 
         if (this.isCellAlive(i + " , " + j)) {
-          liveNeighbors++;
+          liveNeighboors++;
         }
       }
     }
 
-    if (liveNeighbors === 3)
+    if (liveNeighboors === 3)
       this.nextGeneration.set(position.x + " , " + position.y, {
         x: position.x,
         y: position.y,
