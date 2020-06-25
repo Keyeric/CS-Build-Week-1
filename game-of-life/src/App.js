@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import "./App.css";
 import Universe from "./logic/Universe";
+import About from "./components/About";
 
 export default class Game extends Component {
   constructor(props) {
@@ -146,54 +147,55 @@ export default class Game extends Component {
 
   render() {
     return (
-      <div className="worldContainer">
-        <div className="headerContainer">
-          <div className="headerInnerContainer">
-            <label className="label">
-              Rows:
-              <input
-                className="input"
-                type="text"
-                value={this.state.size[1]}
-                onChange={this.handleRowChange}
-              />
-            </label>
-            <label className="label">
-              Columns:
-              <input
-                className="input"
-                type="text"
-                value={this.state.size[0]}
-                onChange={this.handleColumnChange}
-              />
-            </label>
-            <label className="label">
-              Interval:
-              <input
-                className="input"
-                type="text"
-                value={this.state.interval}
-                onChange={this.changeInterval}
-              />
-            </label>
+      <>
+        <About />
+        <div className="worldContainer">
+          <div className="headerContainer">
+            <div className="headerInnerContainer">
+              <label className="label">
+                Rows:
+                <input
+                  className="input"
+                  type="text"
+                  value={this.state.size[1]}
+                  onChange={this.handleRowChange}
+                />
+              </label>
+              <label className="label">
+                Columns:
+                <input
+                  className="input"
+                  type="text"
+                  value={this.state.size[0]}
+                  onChange={this.handleColumnChange}
+                />
+              </label>
+              <label className="label">
+                Interval:
+                <input
+                  className="input"
+                  type="text"
+                  value={this.state.interval}
+                  onChange={this.changeInterval}
+                />
+              </label>
+            </div>
+            <div className="headerButtons">
+              <button className="submit" onClick={this.startGame}>
+                Start
+              </button>
+              <button className="submit" onClick={this.stopGame}>
+                Stop
+              </button>
+              <button className="submit" onClick={this.clearGame}>
+                Clear
+              </button>
+            </div>
+            Generation: {this.state.universe.getGeneration()}
           </div>
-          <div className="headerButtons">
-            <button className="submit" onClick={this.startGame}>
-              Start
-            </button>
-            <button className="submit" onClick={this.stopGame}>
-              Stop
-            </button>
-            <button className="submit" onClick={this.clearGame}>
-              Clear
-            </button>
-            {/* <button onClick={this.runGame}>+</button>
-            <button>-</button> */}
-          </div>
-          Generation: {this.state.universe.getGeneration()}
+          <div className="boardContainer">{this.renderBoard()}</div>
         </div>
-        <div className="boardContainer">{this.renderBoard()}</div>
-      </div>
+      </>
     );
   }
 }
