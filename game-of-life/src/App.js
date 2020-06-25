@@ -7,7 +7,7 @@ export default class Game extends Component {
     super(props);
     this.state = {
       universe: new Universe(),
-      size: [25, 25],
+      size: [65, 70],
       gameRunning: false,
       interval: 100,
     };
@@ -16,6 +16,7 @@ export default class Game extends Component {
     this.handleRowChange = this.handleRowChange.bind(this);
     this.startGame = this.startGame.bind(this);
     this.stopGame = this.stopGame.bind(this);
+    this.clearGame = this.clearGame.bind(this);
     this.renderBoard = this.renderBoard.bind(this);
     this.storeCell = this.storeCell.bind(this);
   }
@@ -92,6 +93,12 @@ export default class Game extends Component {
     });
   }
 
+  clearGame() {
+    this.setState({
+      universe: new Universe(),
+    });
+  }
+
   storeCell(position) {
     if (!this.state.gameRunning) {
       this.setState({
@@ -160,15 +167,15 @@ export default class Game extends Component {
                 onChange={this.handleColumnChange}
               />
             </label>
-            {/* <label className="label"> */}
-            {/* Interval:
+            <label className="label">
+              Interval:
               <input
                 className="input"
                 type="text"
                 value={this.state.interval}
                 onChange={this.changeInterval}
-              /> */}
-            {/* </label> */}
+              />
+            </label>
           </div>
           <div className="headerButtons">
             <button className="submit" onClick={this.startGame}>
@@ -177,6 +184,11 @@ export default class Game extends Component {
             <button className="submit" onClick={this.stopGame}>
               Stop
             </button>
+            <button className="submit" onClick={this.clearGame}>
+              Clear
+            </button>
+            {/* <button onClick={this.runGame}>+</button>
+            <button>-</button> */}
           </div>
           Generation: {this.state.universe.getGeneration()}
         </div>

@@ -53,6 +53,20 @@ export default class Universe {
     return new Universe(this.generation, this.nextGeneration);
   }
 
+  //   removeGeneration() {
+  //     this.liveCells.forEach((item) => {
+  //       this.calculateDeadCellsNeighboors(item);
+  //     });
+
+  //     this.deadCells.forEach((item) => {
+  //       this.calculateLiveCellsNeighboors(item);
+  //     });
+
+  // this.generation - 1;
+
+  // return new Universe(this.generation, this.nextGeneration);
+  //   }
+
   calculateLiveCellsNeighboors(position) {
     var liveNeighboors = 0;
 
